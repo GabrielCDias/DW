@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+   <DataSources>
+      <Connection id="select_ano" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+      <Connection id="ano_total" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+      <Connection id="ano_mes_total" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+      <Connection id="clientes_total" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+      <Connection id="categoria_qtd" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+      <Connection id="produtos_total" type="mondrian.jndi">
+         <Catalog>mondrian:/sad_dw</Catalog>
+         <Jndi>dw</Jndi>
+      </Connection>
+   </DataSources>
+   <DataAccess access="public" connection="select_ano" id="select_ano" type="mdx">
+      <Name>select_ano</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query><![CDATA[WITH
+SET [~Dim data_Dim data.Ano_(All)] AS
+    {[Dim data.Ano].[All Dim data.Anos]}
+SET [~Dim data_Dim data.Ano_Ano] AS
+    {[Dim data.Ano].[2004], [Dim data.Ano].[2006], [Dim data.Ano].[2007], [Dim data.Ano].[2008], [Dim data.Ano].[2010]}
+SET [~ROWS] AS
+    Order(Hierarchize({[~Dim data_Dim data.Ano_(All)], [~Dim data_Dim data.Ano_Ano]}), [Dim data.Mes].[Mes].CURRENTMEMBER.ORDERKEY, BASC)
+SELECT
+NON EMPTY {[Measures].[ORDER TOTAL]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [sad_dw]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ano_total" id="ano_total" type="mdx">
+      <Name>ano_total</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query><![CDATA[WITH
+SET [~ROWS] AS
+    {[Dim data.Ano].[Ano].Members}
+SELECT
+NON EMPTY {[Measures].[ORDER TOTAL]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [sad_dw]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ano_mes_total" id="ano_mes_total" type="mdx">
+      <Name>ano_mes_total</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ANO" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~FILTER] AS
+        {[Dim data.Ano].[${ANO}]}
+SET [~ROWS_Dim data_Dim data.Nome mes] AS
+    {[Dim data.Nome mes].[Nome mes].Members}
+SET [~ROWS_Dim data_Dim data.Mes] AS
+    {[Dim data.Mes].[1], [Dim data.Mes].[2], [Dim data.Mes].[3], [Dim data.Mes].[4], [Dim data.Mes].[5], [Dim data.Mes].[6], [Dim data.Mes].[7], [Dim data.Mes].[8], [Dim data.Mes].[9], [Dim data.Mes].[10], [Dim data.Mes].[11], [Dim data.Mes].[12]}
+SELECT
+NON EMPTY {[Measures].[ORDER TOTAL]} ON COLUMNS,
+NON EMPTY Order(NonEmptyCrossJoin([~ROWS_Dim data_Dim data.Nome mes], [~ROWS_Dim data_Dim data.Mes]), [Dim data.Mes].[Mes].CURRENTMEMBER.ORDERKEY, BASC) ON ROWS
+FROM [sad_dw]
+WHERE [~FILTER]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="clientes_total" id="clientes_total" type="mdx">
+      <Name>clientes_total</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ANO" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~FILTER] AS
+        {[Dim data.Ano].[${ANO}]}
+SET [~ROWS] AS
+    Order(TopCount({[Dim clientes.CUST FIRST NAME].[CUST FIRST NAME].Members}, 5, [Measures].[CLIENTE DIM ID]), [Measures].[ORDER TOTAL], BDESC)
+SELECT
+NON EMPTY {[Measures].[ORDER TOTAL]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [sad_dw]
+WHERE [~FILTER]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="categoria_qtd" id="categoria_qtd" type="mdx">
+      <Name>categoria_qtd</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ANO" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~FILTER] AS
+        {[Dim data.Ano].[${ANO}]}
+SET [~ROWS] AS
+    Order(TopCount({[Dim produtos.CATEGORY NAME].[CATEGORY NAME].Members}, 10, [Measures].[CLIENTE DIM ID]), [Measures].[ORDER TOTAL], BDESC)
+SELECT
+NON EMPTY {[Measures].[QUANTITY]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [sad_dw]
+WHERE [~FILTER]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="produtos_total" id="produtos_total" type="mdx">
+      <Name>produtos_total</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ANO" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~FILTER] AS
+        {[Dim data.Ano].[${ANO}]}
+SET [~ROWS] AS
+    Order(TopCount({[Dim produtos.PRODUCT NAME].[PRODUCT NAME].Members}, 5, [Measures].[ORDER TOTAL]), [Measures].[ORDER TOTAL], DESC)
+SELECT
+NON EMPTY {[Measures].[ORDER TOTAL]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [sad_dw]
+WHERE [~FILTER]]]></Query>
+   </DataAccess>
+</CDADescriptor>

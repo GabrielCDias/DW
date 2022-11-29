@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ExportManifest xmlns:ns2="http://www.pentaho.com/schema/">
+    <ExportManifestInformation exportDate="29-11-2022 01:23:53 BRT" exportBy="admin" rootFolder="/home/" manifestVersion="2"/>
+    <ExportManifestEntity path="admin">
+        <ExportManifestProperty>
+            <EntityMetaData name="admin" createdDate="2022-11-28T09:15:20.919-03:00" isFolder="true" path="admin" isHidden="false" isSchedulable="true" locale="pt_BR" title="admin"/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityExtraMetaData/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityAcl>
+                <aces>
+                    <permissions>ALL</permissions>
+                    <recipient>admin</recipient>
+                    <recipientType>USER</recipientType>
+                </aces>
+                <entriesInheriting>false</entriesInheriting>
+                <owner>admin</owner>
+                <ownerType>USER</ownerType>
+            </EntityAcl>
+        </ExportManifestProperty>
+    </ExportManifestEntity>
+    <ExportManifestEntity path="admin/sad_dashboard.cda">
+        <ExportManifestProperty>
+            <EntityMetaData name="sad_dashboard.cda" createdDate="2022-11-28T15:39:10.564-03:00" isFolder="false" path="admin/sad_dashboard.cda" isHidden="false" isSchedulable="true" locale="pt_BR" title="sad_dashboard.cda"/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityExtraMetaData/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityAcl>
+                <entriesInheriting>true</entriesInheriting>
+                <owner>admin</owner>
+                <ownerType>USER</ownerType>
+            </EntityAcl>
+        </ExportManifestProperty>
+    </ExportManifestEntity>
+    <ExportManifestEntity path="admin/sad_dashboard.cdfde">
+        <ExportManifestProperty>
+            <EntityMetaData name="sad_dashboard.cdfde" createdDate="2022-11-28T15:39:10.134-03:00" isFolder="false" path="admin/sad_dashboard.cdfde" isHidden="false" isSchedulable="true" locale="pt_BR" title="sad_dashboard.cdfde"/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityExtraMetaData/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityAcl>
+                <entriesInheriting>true</entriesInheriting>
+                <owner>admin</owner>
+                <ownerType>USER</ownerType>
+            </EntityAcl>
+        </ExportManifestProperty>
+    </ExportManifestEntity>
+    <ExportManifestEntity path="admin/sad_dashboard.wcdf">
+        <ExportManifestProperty>
+            <EntityMetaData name="sad_dashboard.wcdf" createdDate="2022-11-28T15:39:09.649-03:00" isFolder="false" path="admin/sad_dashboard.wcdf" isHidden="false" isSchedulable="true" locale="pt_BR" description="Dashboard - SAD" title="Painel de Vendas"/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityExtraMetaData/>
+        </ExportManifestProperty>
+        <ExportManifestProperty>
+            <EntityAcl>
+                <entriesInheriting>true</entriesInheriting>
+                <owner>admin</owner>
+                <ownerType>USER</ownerType>
+            </EntityAcl>
+        </ExportManifestProperty>
+    </ExportManifestEntity>
+</ns2:ExportManifest>

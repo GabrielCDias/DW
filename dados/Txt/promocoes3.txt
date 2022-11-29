@@ -1,0 +1,2 @@
+PROMO_ID,PROMO_NAME
+4, black-friday
