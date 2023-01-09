@@ -1,4 +1,4 @@
-# Dawarehouse no Pentaho Data Integration
+# Datawarehouse no Pentaho Data Integration
 
 ## Introdução
 
